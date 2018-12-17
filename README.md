@@ -1,5 +1,5 @@
 # form-making
-基于Vue,ElementUI开发的一款表单设计器，提高表单开发效率的利器，让开发者从枯燥的表单代码编写中解放出来
+基于Vue,ElementUI开发的一款表单设计器，提高表单开发效率的利器，让开发者从枯燥的表单代码编写中解放出来，同步兼容pc和H5端
 
 工具地址：http://tools.xiaoyaoji.cn/form
 
@@ -161,12 +161,12 @@ new Vue({
 
 * 如果你发现了新的 bug，或者有新的 feature request，请新建一个 issue
 
-## 捐赠 
+<!-- ## 捐赠 
 
 如果觉得还不错，请作者喝杯咖啡吧 ☺
 
-![](https://user-gold-cdn.xitu.io/2018/10/28/166ba780bb01fef7?w=2304&h=1050&f=jpeg&s=197327)
+![]() -->
 
 ## 问题交流
 
-QQ群：902048874
+QQ群：645582193

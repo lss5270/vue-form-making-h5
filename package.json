@@ -1,23 +1,24 @@
 {
-  "name": "form-making",
-  "description": "基于Vue,ElementUI开发的一款表单设计器，提高表单开发效率的利器，让开发者从枯燥的表单代码编写中解放出来",
+  "name": "vue-form-making-h5",
+  "description": "基于Vue,ElementUI开发的一款表单设计器，提高表单开发效率的利器，让开发者从枯燥的表单代码编写中解放出来，同步兼容pc和H5端",
   "version": "1.1.0",
-  "author": "GavinZhulei",
+  "author": "lss",
   "license": "MIT",
   "keywords": [
     "component",
     "vue",
     "form",
     "element-ui",
-    "auto"
+    "auto",
+    "lss"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/GavinZhuLei/vue-form-making"
+    "url": "https://github.com/lss5270/vue-form-making-h5"
   },
   "main": "dist/FormMaking.common.js",
   "scripts": {
-    "serve": "vue-cli-service serve --open",
+    "start": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "build-bundle": "vue-cli-service build --target lib --name FormMaking ./src/indexBundle.js"

@@ -10,6 +10,12 @@ import 'element-ui/lib/theme-chalk/index.css'
 import FormMaking from './index'
 Vue.use(FormMaking)
 
+import * as filters from './filters'; // 全局vue filter
+// register global utility filters.
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+
 Vue.config.productionTip = false
 
 Vue.use(ElementUI, { size: 'small' })

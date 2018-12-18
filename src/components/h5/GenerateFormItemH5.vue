@@ -109,7 +109,111 @@
         >
           <van-switch v-model="dataModel" :disabled="widget.options.disabled" size="24px" />
         </van-cell>
+      </template>
+      
+      <!-- 日期 年月日 -->
+      <template v-if="widget.type == 'date'">
+        <van-cell 
+          :required="widget.options.required"
+          :title="widget.name"
+          :is-link="isLink"
+          disabled
+        >
+          <div @click="dateShow = true">&nbsp;{{dataModel | parseTime('{y}-{m}-{d}')}}</div>
+        </van-cell>
 
+        <van-popup 
+          v-model="dateShow" 
+          position="bottom"
+          
+          >
+            <van-datetime-picker
+              :title="widget.name"
+              v-model="dataModel"
+              type="date"
+              :show-toolbar="true"
+              :formatter="formatter"
+              @confirm="dateConfirmClick"
+              @cancel="dateShow = false"
+            />
+              
+          </van-popup>
+      </template>
+
+      <!-- 时间 时分 -->
+      <template v-if="widget.type == 'time'">
+        <van-cell 
+          :required="widget.options.required"
+          :title="widget.name"
+          :is-link="isLink"
+          disabled
+        >
+          <div @click="dateShow = true">&nbsp;{{dataModel}}</div>
+        </van-cell>
+
+        <van-popup 
+          v-model="dateShow" 
+          position="bottom"
+          
+          >
+            <van-datetime-picker
+              :title="widget.name"
+              v-model="dataModel"
+              type="time"
+              :show-toolbar="true"
+              @confirm="dateShow = false"
+              @cancel="dateShow = false"
+            />
+              
+          </van-popup>
+      </template>
+      
+      <!-- 评分 -->
+      <template v-if="widget.type == 'rate'">
+        <van-cell 
+          :required="widget.options.required"
+          :title="widget.name"
+          :is-link="isLink"
+          disabled
+        >
+          <van-rate
+            v-model="dataModel"
+            :size="24"
+            :count="widget.options.max"
+            
+          />
+        </van-cell>
+      </template>
+
+      <!-- 滑块 -->
+      <template v-if="widget.type == 'slider'">
+        <van-cell 
+          :required="widget.options.required"
+          :title="widget.name"
+          :is-link="isLink"
+          disabled
+        > 
+          <div style="padding:11px;">
+            <van-slider v-model="dataModel" :min="widget.options.min" :max="widget.options.max" :step="widget.options.step" />
+          </div>
+          
+        </van-cell>
+      </template>
+
+      <!-- 图片上传 (涉及到文件上传的服务器，)-->
+      <template v-if="widget.type == 'imgupload'">
+        <van-cell 
+          :required="widget.options.required"
+          :title="widget.name"
+          :is-link="isLink"
+          disabled
+        > 
+          
+          <van-uploader :after-read="onReadFile" accept="image/gif, image/jpeg" multiple style="width:100%;font-size:20px;vertical-align:middle;">
+            <van-icon name="photograph" />
+          </van-uploader>
+       
+        </van-cell>
       </template>
     </van-cell-group>
 
@@ -277,6 +381,7 @@ export default {
       clearable: true,
       isLink: true,
       inputAlign: 'right',
+      dateShow: false,
     }
   },
   created () {
@@ -292,9 +397,10 @@ export default {
     }
 
     if (this.widget.type === 'imgupload') {
-      this.remote[this.widget.options.tokenFunc]((data) => {
+      //先注释
+      /*this.remote[this.widget.options.tokenFunc]((data) => {
         this.widget.options.token = data
-      })
+      })*/
     }
   },
   watch: {
@@ -315,6 +421,29 @@ export default {
         this.dataModel = val[this.widget.model]
       }
     }
+  },
+  methods:{
+    formatter(type, value) {
+      if (type === 'year') {
+        return `${value}年`;
+      } else if (type === 'month') {
+        return `${value}月`
+      } else if (type === 'day') {
+        return `${value}日`
+      }
+      return value;
+    },
+    dateConfirmClick(v) {
+      let vm = this
+      console.log('选中的日期为：',v)
+      vm.dateShow = false
+      /*if(new Date(v)){
+        alert('日期')
+      }*/
+    },
+    onReadFile(file) {
+      console.log('文件选中:',file)
+    }
   }
 }
 </script>
@@ -322,5 +451,8 @@ export default {
 <style>
   .van-cell__title{
     width: 100px !important;
+  }
+  .van-cell__value{
+    flex: 2.5 !important;
   }
 </style>

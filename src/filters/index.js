@@ -16,6 +16,10 @@ export function timeAgo(time) {
 }
 
 export function parseTime(time, cFormat) {
+  if (!time) {
+    return ''
+  }
+
   if (arguments.length === 0) {
     return null;
   }

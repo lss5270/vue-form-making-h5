@@ -88,7 +88,7 @@ export default {
           genList[i].columns.forEach(item => {
             this.generateModle(item.list)
           })
-        } else {
+        } else { 
           if (Object.keys(this.value).indexOf(genList[i].model) >= 0) {
             this.models[genList[i].model] = this.value[genList[i].model]
           } else {
@@ -100,7 +100,7 @@ export default {
             
           }
           
-          if (this.rules[genList[i].model]) {
+          if (this.rules[genList[i].model]) { 
             this.rules[genList[i].model] = [...this.rules[genList[i].model], ...genList[i].rules]
           } else {
             this.rules[genList[i].model] = [...genList[i].rules]
@@ -108,6 +108,8 @@ export default {
           
         }
       }
+
+      console.log('全部校验规则：',this.rules)
     },
     getData () {
       return new Promise((resolve, reject) => {
@@ -119,6 +121,9 @@ export default {
           }
         })
       })
+    },
+    getData2 () {
+      return this.models
     },
     refresh () {
       

@@ -411,13 +411,14 @@ export default {
 
       this.generateRule()
     },
-    'data.options.pattern': function (val) {
+    'data.options.pattern': function (val) { 
       if (!this.show) {
         return false
       }
 
       if (val) {
-        this.validator.pattern = {pattern: eval(val), message: this.data.name + '格式不匹配'}
+        /*this.validator.pattern = {pattern: eval(val), message: this.data.name + '格式不匹配'}*/
+        this.validator.pattern = {pattern: val, message: this.data.name + '格式不匹配'}
       } else {
         this.validator.pattern = null
       }

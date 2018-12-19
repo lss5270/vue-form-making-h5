@@ -1,7 +1,7 @@
 <template>
   <div class="lss-form-item">
     <van-cell-group>
-      <!-- 普通输入框 -->
+      <!-- 普通输入框 Field输入框支持框下错误提示-->
       <template v-if="widget.type == 'input'" >
         <van-field
           v-model="dataModel"
@@ -11,6 +11,7 @@
           :clearable="clearable"
           :is-link="isLink"
           :input-align="inputAlign"
+
         />
       </template>
       <!-- 计步器 -->
@@ -45,7 +46,7 @@
         </van-field> -->
       </template>
       
-      <!-- 文本域 -->
+      <!-- 文本域 Field输入框支持框下错误提示-->
       <template v-if="widget.type == 'textarea'">
         <van-field
           type="textarea"
@@ -417,7 +418,7 @@ export default {
     models: {
       deep: true,
       handler (val) {
-        console.log('--------')
+        /*console.log('--------')*/
         this.dataModel = val[this.widget.model]
       }
     }

@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <div class="fm-header">
+    <!-- <div class="fm-header">
       <img class="fm-logo" src="./assets/logo.png">
       <div class="fm-title">表单设计器</div>
-
+    
       <div style="color: #fff; font-size: 13px; position: absolute; top: 24px; left: 200px;">
         QQ交流群：902048874
       </div>
-
+    
       <div class="fm-link">
         <a href="https://github.com/GavinZhuLei/vue-form-making">GitHub</a>
         <a href="https://gitee.com/gavinzhulei/vue-form-making">码云</a>
         <a href="http://www.xiaoyaoji.cn" target="_blank">小幺鸡接口文档</a>
       </div>
-    </div>
+    </div> -->
     <div class="fm-container">
       <router-view/>
     </div>

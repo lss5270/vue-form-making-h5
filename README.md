@@ -1,7 +1,8 @@
 # form-making
 基于Vue,ElementUI开发的一款表单设计器，提高表单开发效率的利器，让开发者从枯燥的表单代码编写中解放出来，同步兼容pc和H5端
 
-工具地址：http://tools.xiaoyaoji.cn/form
+工具地址：（待发布）
+H5演示地址： （待发布）
 
 ![](https://user-gold-cdn.xitu.io/2018/9/27/1661a6cd60454273)
 

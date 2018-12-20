@@ -55,7 +55,8 @@
     </el-aside>
     <el-container class="center-container" direction="vertical">
       <el-header class="btn-bar" style="height: 45px;">
-        <el-button type="text" size="medium" @click="handleGoGithub">GitHub</el-button>
+        <!-- <el-button type="text" size="medium" @click="handleGoGithub">GitHub</el-button> -->
+        <el-button type="text" size="medium" icon="el-icon-upload2" @click="handleGenerateJson2">导入JSON</el-button>
         <el-button type="text" size="medium" icon="el-icon-view" @click="handlePreview">预览</el-button>
         <el-button type="text" size="medium" icon="el-icon-tickets" @click="handleGenerateJson">生成JSON</el-button>
         <el-button type="text" size="medium" icon="el-icon-document" @click="handleGenerateCode">生成代码</el-button>
@@ -108,6 +109,21 @@
       
       <template slot="action">
         <el-button id="copybtn" data-clipboard-target=".ace_text-input">双击复制</el-button>
+      </template>
+    </cus-dialog>
+    <!-- 导入json -->
+    <cus-dialog
+      :visible="importJsonVisible"
+      @on-close="importJsonVisible = false"
+      ref="jsonPreview"
+      width="800px"
+      form
+    > 
+      <p>JSON格式如下，直接复制生成的json覆盖此处代码点击确定即可</p>
+      <div id="jsoneditor2" style="height: 400px;width: 100%;">{{importJsonTemplate}}</div>
+      
+      <template slot="action">
+        <el-button @click="setImportJson">确定</el-button>
       </template>
     </cus-dialog>
 
@@ -166,6 +182,7 @@ export default {
       widgetFormSelect: null,
       previewVisible: false,
       jsonVisible: false,
+      importJsonVisible: false,
       codeVisible: false,
       remoteFuncs: {
         func_test (resolve) {
@@ -188,7 +205,8 @@ export default {
       widgetModels: {},
       blank: '',
       htmlTemplate: '',
-      jsonTemplate: ''
+      jsonTemplate: '',
+      importJsonTemplate: {"list":[{"type":"input","name":"单行文本","icon":"icon-input","options":{"width":"100%","defaultValue":"","required":false,"dataType":"string","pattern":"","placeholder":"","remoteFunc":"func_1540908864000_94322"},"key":"1540908864000_94322","model":"input_1540908864000_94322","rules":[{"type":"string","message":"单行文本格式不正确"}]},{"type":"textarea","name":"多行文本","icon":"icon-diy-com-textarea","options":{"width":"100%","defaultValue":"","required":false,"pattern":"","placeholder":"","remoteFunc":"func_1540908876000_19435"},"key":"1540908876000_19435","model":"textarea_1540908876000_19435","rules":[]}],"config":{"labelWidth":100,"labelPosition":"top","size":"small"}}
     }
   },
   mounted () {
@@ -226,6 +244,7 @@ export default {
     handleGenerateJson () {
       this.jsonVisible = true
       this.jsonTemplate = this.widgetForm
+      console.log('----json----',this.widgetForm)
       this.$nextTick(() => {
 
         const editor = ace.edit('jsoneditor')
@@ -233,6 +252,29 @@ export default {
 
         const btnCopy = new Clipboard('#copybtn')
       })
+    },
+    handleGenerateJson2 () {
+      this.importJsonVisible = true
+      //this.importJsonTemplate = this.widgetForm
+      console.log('----json----',this.widgetForm)
+      this.$nextTick(() => { 
+
+        const editor = ace.edit('jsoneditor2')
+        editor.session.setMode("ace/mode/json")
+
+        //const btnCopy = new Clipboard('#copybtn')
+      })
+    },
+    setImportJson (){//debugger
+      console.log(this.widgetForm)
+      const editor = ace.edit('jsoneditor2')
+            editor.session.setMode("ace/mode/json")
+      let _importJsonTemplate = editor.getValue()
+      console.log('获取json',JSON.parse(_importJsonTemplate)) 
+
+      this.widgetForm = JSON.parse(_importJsonTemplate)
+
+      this.importJsonVisible = false
     },
     handleGenerateCode () {
       this.codeVisible = true

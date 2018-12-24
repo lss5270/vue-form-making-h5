@@ -57,7 +57,8 @@
       <el-header class="btn-bar" style="height: 45px;">
         <!-- <el-button type="text" size="medium" @click="handleGoGithub">GitHub</el-button> -->
         <el-button type="text" size="medium" icon="el-icon-upload2" @click="handleGenerateJson2">导入JSON</el-button>
-        <el-button type="text" size="medium" icon="el-icon-view" @click="handlePreview">预览</el-button>
+        <el-button type="text" size="medium" icon="el-icon-view" @click="handlePreview">PC预览</el-button>
+        <el-button type="text" size="medium" icon="el-icon-view" @click="handlePreviewH5">H5预览</el-button>
         <el-button type="text" size="medium" icon="el-icon-tickets" @click="handleGenerateJson">生成JSON</el-button>
         <el-button type="text" size="medium" icon="el-icon-document" @click="handleGenerateCode">生成代码</el-button>
       </el-header>
@@ -80,7 +81,8 @@
       </el-container>
       
     </el-aside>
-
+    
+    <!-- PC预览 -->
     <cus-dialog
       :visible="previewVisible"
       @on-close="previewVisible = false"
@@ -96,6 +98,26 @@
           高度：<el-input v-model="scope.model.blank.height" style="width: 100px"></el-input>
         </template>
       </generate-form>
+    </cus-dialog>
+
+    <!-- H5预览 -->
+    <cus-dialog
+      :visible="previewH5Visible"
+      @on-close="previewH5Visible = false"
+      ref="widgetPreview"
+      @on-submit="handleTest"
+      width="425px"
+      form
+      title="H5初步预览效果"
+    > 
+      <p>注：如果想获得更真实的预览效果，请通过路由访问预览，并切换移动端模拟器</p>
+      <fm-generate-form-h5 v-if="previewH5Visible" :data="widgetForm" :remote="remoteFuncs" :value="widgetModels" ref="generateForm">
+
+        <!-- <template slot="blank" slot-scope="scope">
+          宽度：<el-input v-model="scope.model.blank.width" style="width: 100px"></el-input>
+          高度：<el-input v-model="scope.model.blank.height" style="width: 100px"></el-input>
+        </template> -->
+      </fm-generate-form-h5>
     </cus-dialog>
 
     <cus-dialog
@@ -153,6 +175,8 @@ import Clipboard from 'clipboard'
 import {basicComponents, layoutComponents, advanceComponents} from './componentsConfig.js'
 import {loadJs, loadCss} from '../util/index.js'
 import request from '../util/request.js'
+
+//return html，生成html代码
 import generateCode from './generateCode.js'
 
 /*设计器模板fm-making-form组件注册*/
@@ -181,6 +205,7 @@ export default {
       configTab: 'widget',
       widgetFormSelect: null,
       previewVisible: false,
+      previewH5Visible: false,
       jsonVisible: false,
       importJsonVisible: false,
       codeVisible: false,
@@ -232,6 +257,9 @@ export default {
     },
     handlePreview () {
       this.previewVisible = true
+    },
+    handlePreviewH5 () {
+      this.previewH5Visible = true
     },
     handleTest () {
       this.$refs.generateForm.getData().then(data => {
